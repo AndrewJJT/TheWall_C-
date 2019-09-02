@@ -82,9 +82,10 @@ namespace TheWall.Controllers
 
         }
 
-        [HttpGet("Wall")]  //TODO modify logic based on the exam 
+        [HttpGet("Wall")]  
         public IActionResult Wall(){
-            if(HttpContext.Session.GetInt32("UserFirstName") != null){
+            if(HttpContext.Session.GetInt32("UserFirstName") != null)
+            {
                 
                 ViewBag.currentUserFirstName = HttpContext.Session.GetString("UserFirstName");
 
@@ -101,50 +102,66 @@ namespace TheWall.Controllers
 
                 return View();
             }
-            else{
+            else
+            {
                 return RedirectToAction("Index");
             }
         }
 
         [HttpPost("ProcessAddMessage")]
-        public IActionResult ProcessAddMessage(IndexViewModel indexmodeldata){
-            
-            // ViewBag.UserId = (int) HttpContext.Session.GetInt32("UserId");
+        public IActionResult ProcessAddMessage(IndexViewModel indexmodeldata)
+        {
+            if(HttpContext.Session.GetInt32("UserFirstName") != null)
+            {
+                    int? currentUserId = HttpContext.Session.GetInt32("UserId");
+                    int currentLoginId = (int) currentUserId;
+                        
+                    ViewBag.UserId = currentLoginId;
 
-            int? currentUserId = HttpContext.Session.GetInt32("UserId");
-            int currentLoginId = (int) currentUserId;
-                
-            ViewBag.UserId = currentLoginId;
+                    Message newMessage = indexmodeldata.IndexMessage;
 
-            Message newMessage = indexmodeldata.IndexMessage;
+                    if(ModelState.IsValid){
 
-            if(ModelState.IsValid){
-
-                dbContext.messages.Add(newMessage);
-                dbContext.SaveChanges();
-                return RedirectToAction("Wall");
+                        dbContext.messages.Add(newMessage);
+                        dbContext.SaveChanges();
+                        return RedirectToAction("Wall");
+                    }
+                    else{
+                        return View("Wall");
+                    }
             }
-            else{
-                return View("Wall");
-            }
+            else
+            {
+                return RedirectToAction("Index");
+            } 
+
         }
 
         [HttpPost("ProcessAddComment")]
         public IActionResult ProcessAddComment(IndexViewModel indexmodeldata){
-            
-            ViewBag.UserId = (int) HttpContext.Session.GetInt32("UserId");
+        
+            if(HttpContext.Session.GetInt32("UserFirstName") != null)
+            { 
+                ViewBag.UserId = (int) HttpContext.Session.GetInt32("UserId");
 
-            Comment newComment = indexmodeldata.IndexComment;
+                Comment newComment = indexmodeldata.IndexComment;
 
-            if(ModelState.IsValid){
+                if(ModelState.IsValid){
 
-                dbContext.comments.Add(newComment);
-                dbContext.SaveChanges();
-                return RedirectToAction("Wall");
+                    dbContext.comments.Add(newComment);
+                    dbContext.SaveChanges();
+                    return RedirectToAction("Wall");
+                }
+                else{
+                    return View("Wall");
+                }
+
             }
-            else{
-                return View("Wall");
-            }
+
+            else
+            {
+                return RedirectToAction("Index");
+            } 
         }
 
         public IActionResult Logout(){
