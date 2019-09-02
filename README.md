@@ -21,4 +21,13 @@ From there you can download the appropriate .NET Core SDK.
 (64bit version for window)  
 4. For support, download extension on VS code: C# for Visual Studio Code (powered by OmniSharp)
 5. Install MySql Sever
-6. In terminal (cmd or powershell), in the directory where the TheWall.csproj lives, run "dotnet run" command 
+6. In terminal after navigating to your project directory, run the following commands  
+    dotnet add package MySql.Data -v 8.0.16
+7. Inside the appsetting.json file, please change the information of connection string to match your own local MySql Sever
+8. Install EF Framework Core dependency, run the following command at project directory  
+    dotnet add package Pomelo.EntityFrameworkCore.MySql -v 2.2.0
+9. After the project is opened with VS Code, migrate Models to local database with the following commands  
+   dotnet ef migrations add YourMigrationName    
+   dotnet ef database update  
+10. After the database is created in local MySql server, go to project's Model folder and uncomment all the //[Required] line above the model properties 
+11. Save the all the files. In terminal (cmd or powershell), in the directory where the TheWall.csproj lives, run "dotnet run" command 
