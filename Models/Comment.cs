@@ -8,6 +8,7 @@ namespace TheWall.Models{
         
         public int CommentId { get; set; }
 
+        // [Required]
         public string ComContent { get; set; }
 
         //each comment belong to a message

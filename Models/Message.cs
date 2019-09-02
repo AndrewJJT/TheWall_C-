@@ -7,6 +7,7 @@ namespace TheWall.Models{
     public class Message{
         public int MessageId { get; set; }  
 
+        // [Required]
         public string MegContent { get; set; }
 
         public DateTime CreatedAt {get;set;} = DateTime.Now;

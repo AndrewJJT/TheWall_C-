@@ -19,15 +19,15 @@ namespace TheWall.Models{
         public string  LastName { get; set; }
 
         // [Required]
-        // [EmailAddress]
+        [EmailAddress]
         [Display(Name="Email: ")]
         public string Email { get; set; }
 
 
         // [Required]
         [Display(Name="Password: ")]
-        // [DataType(DataType.Password)]
-        // [MinLength(8, ErrorMessage="Password must be 8 characters or longer!")]
+        [DataType(DataType.Password)]
+        [MinLength(8, ErrorMessage="Password must be 8 characters or longer!")]
         public string Password { get; set; }
 
         public DateTime CreatedAt {get;set;} = DateTime.Now;
