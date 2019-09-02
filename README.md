@@ -1,5 +1,5 @@
 # TheWall_C-
-- Small MVC web app for posting messages and comments 
+- Small MVC web app for posting messages and comments by users
 
 Instructions for running the applicaion:
 
